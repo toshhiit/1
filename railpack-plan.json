@@ -8,7 +8,7 @@
     ]
   },
   "start": {
-    "command": "sh -c \"gunicorn server:app --bind 0.0.0.0:$PORT --workers 4 & python tgbot.py\""
+    "command": "python backend/server.py"
   },
   "env": [
     "BOT_TOKEN",
