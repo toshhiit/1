@@ -2,38 +2,33 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Авторизация...</title>
 </head>
 <body>
     <h1>Авторизация...</h1>
 
     <script>
+        // Твой backend Railway
+        const API_URL = "https://YOUR_BACKEND_URL.up.railway.app";
+
         const token = new URLSearchParams(window.location.search).get("token");
 
         if (!token) {
-            document.body.innerHTML = "<h1>Токен не найден в URL</h1>";
+            document.body.innerHTML = "<h1>Ошибка: токен не найден</h1>";
         } else {
-            fetch("https://adaline-noncalculating-sustainingly.ngrok-free.dev/api/auth/verify", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ token })
-            })
-            .then(r => r.json())
-            .then(data => {
-                if (data.success) {
-                    // сохраняем сессию
-                    localStorage.setItem("session", data.session);
-
-                    // перекидываем пользователя на главную страницу твоего домена
-                    window.location.href = "https://libraryofgames.netlify.app";
-                } else {
-                    document.body.innerHTML = "<h1>Ошибка авторизации</h1>";
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                document.body.innerHTML = "<h1>Ошибка подключения к серверу</h1>";
-            });
+            fetch(`${API_URL}/auth?token=${token}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.status === "ok") {
+                        // Авторизация успешна → отправляем на главную страницу
+                        window.location.href = `/index.html?user=${data.user_id}`;
+                    } else {
+                        document.body.innerHTML = `<h1>Ошибка: ${data.error}</h1>`;
+                    }
+                })
+                .catch(() => {
+                    document.body.innerHTML = "<h1>Ошибка сервера Railway</h1>";
+                });
         }
     </script>
 </body>
