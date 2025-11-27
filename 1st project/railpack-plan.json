@@ -1,15 +1,14 @@
 {
   "name": "telegram-bot",
   "build": {
+    "image": "python:3.11-slim",
     "commands": [
-      "echo 'Build started...'",
-      "ls -la",                      // Проверка, что файл есть
-      "chmod +x start.sh"
+      "pip install --upgrade pip",
+      "pip install -r requirements.txt"
     ]
   },
- "start": {
-  "command": "gunicorn server:app --bind 0.0.0.0:$PORT --workers 4"
-}
+  "start": {
+    "command": "sh -c \"gunicorn server:app --bind 0.0.0.0:$PORT --workers 4 & python tgbot.py\""
   },
   "env": [
     "BOT_TOKEN",
