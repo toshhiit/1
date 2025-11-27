@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 #  CONFIG ДЛЯ RAILWAY
 # =============================
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")  # token TG bot
+BOT_TOKEN = os.getenv("7961739892:AAEzrVbw-5kRBFKvi-_jRvy4pxMBLTNA6DM")  # token TG bot
 SITE_URL = os.getenv("SITE_URL", "https://libraryofgames.netlify.app")
 
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -131,3 +131,4 @@ def stats_cmd(message):
 
 
 bot.infinity_polling()
+
