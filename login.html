@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация...</title>
+</head>
+<body>
+    <h1>Авторизация...</h1>
+
+    <script>
+        // Твой backend Railway
+        const API_URL = "https://YOUR_BACKEND_URL.up.railway.app";
+
+        const token = new URLSearchParams(window.location.search).get("token");
+
+        if (!token) {
+            document.body.innerHTML = "<h1>Ошибка: токен не найден</h1>";
+        } else {
+            fetch(`${API_URL}/auth?token=${token}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.status === "ok") {
+                        // Авторизация успешна → отправляем на главную страницу
+                        window.location.href = `/index.html?user=${data.user_id}`;
+                    } else {
+                        document.body.innerHTML = `<h1>Ошибка: ${data.error}</h1>`;
+                    }
+                })
+                .catch(() => {
+                    document.body.innerHTML = "<h1>Ошибка сервера Railway</h1>";
+                });
+        }
+    </script>
+</body>
+</html>
