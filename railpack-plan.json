@@ -3,12 +3,12 @@
   "build": {
     "image": "python:3.11-slim",
     "commands": [
-      "pip install --upgrade pip",
-      "pip install -r requirements.txt"
+      "python -m pip install --upgrade pip",
+      "python -m pip install -r requirements.txt"
     ]
   },
   "start": {
-    "command": "python backend/server.py"
+    "command": "python server.py"
   },
   "env": [
     "BOT_TOKEN",
