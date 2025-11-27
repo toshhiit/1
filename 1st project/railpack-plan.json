@@ -1,0 +1,15 @@
+{
+  "name": "telegram-bot",
+  "build": {
+    "commands": [
+      "chmod +x start.sh"
+    ]
+  },
+  "start": {
+    "command": "./start.sh"
+  },
+  "env": [
+    "BOT_TOKEN",
+    "DATABASE_URL"
+  ]
+}
