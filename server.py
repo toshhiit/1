@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 # CONFIG
 # =============================
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-SITE_URL = os.getenv("SITE_URL")  # можно не указывать, будет использоваться Railway URL
+SITE_URL = os.getenv("SITE_URL")  # например: https://libraryofgames.netlify.app
 PORT = int(os.environ.get("PORT", 8080))
 SITE_DIR = os.path.join(os.path.dirname(__file__), '../frontend')
 
@@ -48,14 +48,19 @@ def generate_token(user_id):
     token = str(uuid.uuid4())
     expires_at = datetime.utcnow() + timedelta(minutes=10)
     cursor.execute(
-        "INSERT INTO auth_tokens (user_id, token, expires_at) VALUES (%s, %s, %s)",
+        """
+        INSERT INTO auth_tokens (user_id, token, expires_at)
+        VALUES (%s, %s, %s)
+        ON CONFLICT (user_id) DO UPDATE
+        SET token = EXCLUDED.token, expires_at = EXCLUDED.expires_at
+        """,
         (user_id, token, expires_at)
     )
     conn.commit()
     return token
 
 # =============================
-# Bot commands (всё как в твоем tgbot.py)
+# Bot commands
 # =============================
 @bot.message_handler(commands=['start'])
 def start_cmd(message):
@@ -93,8 +98,12 @@ def games_cmd(message):
         bot.send_message(message.chat.id, "Ошибка: пользователь не найден.")
         return
 
+    if not SITE_URL:
+        bot.send_message(message.chat.id, "Ошибка: SITE_URL не задан.")
+        return
+
     token = generate_token(user_id)
-    link = f"{SITE_URL}/login?token={token}" if SITE_URL else f"/login?token={token}"
+    link = f"{SITE_URL}/login?token={token}"
 
     btn = telebot.types.InlineKeyboardButton("Перейти на сайт 🎮", url=link)
     markup = telebot.types.InlineKeyboardMarkup().add(btn)
@@ -126,7 +135,6 @@ def stats_cmd(message):
 app = Flask(__name__, static_folder=SITE_DIR, static_url_path='')
 CORS(app)
 
-# Отдача фронтенда
 @app.route('/')
 def index():
     return send_from_directory(SITE_DIR, 'index.html')
@@ -135,7 +143,6 @@ def index():
 def static_files(path):
     return send_from_directory(SITE_DIR, path)
 
-# API из server.py
 @app.post("/api/auth/verify")
 def verify():
     data = request.get_json()
