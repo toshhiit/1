@@ -2,6 +2,8 @@
   "name": "telegram-bot",
   "build": {
     "commands": [
+      "echo 'Build started...'",
+      "ls -la",                      // Проверка, что файл есть
       "chmod +x start.sh"
     ]
   },
@@ -10,6 +12,7 @@
   },
   "env": [
     "BOT_TOKEN",
-    "DATABASE_URL"
+    "DATABASE_URL",
+    "SITE_URL"
   ]
 }
