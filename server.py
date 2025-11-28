@@ -181,4 +181,19 @@ def get_user():
     row = cursor.fetchone()
     if not row:
         return jsonify({"success": False})
-    username,
+    username, tg_id = row
+    return jsonify({"success": True, "username": username, "tg_id": tg_id})
+
+# =============================
+# Telegram polling thread
+# =============================
+def run_bot():
+    bot.infinity_polling(skip_pending=True)
+
+threading.Thread(target=run_bot).start()
+
+# =============================
+# Flask
+# =============================
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=PORT)
