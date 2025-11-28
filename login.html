@@ -8,15 +8,15 @@
     <h1>Авторизация...</h1>
 
     <script>
-        // Твой backend Railway
-        const API_URL = "1-production-5ecb.up.railway.app";
+        // Сюда ставь свой backend Railway, только домен без слеша
+        const API_URL = "https://1-production-5ecb.up.railway.app";
 
+        // Берём токен из URL
         const token = new URLSearchParams(window.location.search).get("token");
 
         if (!token) {
             document.body.innerHTML = "<h1>Ошибка: токен не найден</h1>";
         } else {
-            // POST на /api/auth/verify с JSON
             fetch(`${API_URL}/api/auth/verify`, {
                 method: "POST",
                 headers: {
@@ -27,21 +27,11 @@
             .then(r => r.json())
             .then(data => {
                 if (data.success) {
-                    // Авторизация успешна → сохраняем сессию и редиректим
+                    // Сохраняем сессию и username
                     localStorage.setItem("session_id", data.session);
                     localStorage.setItem("username", data.username);
 
-                    // Редирект на index.html
+                    // Перенаправляем на главную страницу
                     window.location.href = `/index.html`;
                 } else {
-                    document.body.innerHTML = `<h1>Ошибка: ${data.error}</h1>`;
-                }
-            })
-            .catch(() => {
-                document.body.innerHTML = "<h1>Ошибка сервера Railway</h1>";
-            });
-        }
-    </script>
-</body>
-</html>
-
+                    document.body.innerHTML = `<h1>Ошибка: ${data.error || "неизвестн
