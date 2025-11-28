@@ -186,8 +186,7 @@ def get_user():
 # Запуск Telegram Bot в отдельном потоке
 # =============================
 def run_bot():
-    bot.infinity_polling()
-
+    bot.set_webhook()
 threading.Thread(target=run_bot).start()
 
 # =============================
@@ -195,3 +194,4 @@ threading.Thread(target=run_bot).start()
 # =============================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=PORT)
+
