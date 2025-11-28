@@ -15,7 +15,9 @@ from datetime import datetime, timedelta
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 SITE_URL = os.getenv("SITE_URL")  # например: https://libraryofgames.netlify.app
 PORT = int(os.environ.get("PORT", 8080))
-SITE_DIR = os.path.join(os.path.dirname(__file__), '../frontend')
+
+# 👉 ВСЁ ЛЕЖИТ В КОРНЕ, ИСПОЛЬЗУЕМ DIRNAME
+SITE_DIR = os.path.dirname(__file__)
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
@@ -179,21 +181,4 @@ def get_user():
     row = cursor.fetchone()
     if not row:
         return jsonify({"success": False})
-    username, tg_id = row
-    return jsonify({"success": True, "username": username, "tg_id": tg_id})
-
-# =============================
-# Запуск Telegram Bot в отдельном потоке
-# =============================
-def run_bot():
-    bot.infinity_polling(skip_pending=True)
-
-threading.Thread(target=run_bot).start()
-
-# =============================
-# Запуск Flask
-# =============================
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=PORT)
-
-
+    username,
