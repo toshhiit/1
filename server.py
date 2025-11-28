@@ -131,6 +131,7 @@ def stats_cmd(message):
         f"📊 Статистика:\nУровень: {level}\nXP: {xp}\nМонеты: {coins}"
     )
 
+
 # =============================
 # Flask
 # =============================
@@ -141,9 +142,16 @@ CORS(app)
 def index():
     return send_from_directory(SITE_DIR, 'index.html')
 
+# 👉 Чтобы /login открывал login.html
+@app.route('/login')
+def login_page():
+    return send_from_directory(SITE_DIR, 'login.html')
+
+# Остальные файлы (CSS/JS/etc)
 @app.route('/<path:path>')
 def static_files(path):
     return send_from_directory(SITE_DIR, path)
+
 
 @app.post("/api/auth/verify")
 def verify():
@@ -197,3 +205,4 @@ threading.Thread(target=run_bot).start()
 # =============================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=PORT)
+
