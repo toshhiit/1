@@ -196,6 +196,7 @@ def get_user():
 # Telegram polling thread
 # =============================
 def run_bot():
+    bot.remove_webhook()  # убираем любой предыдущий webhook
     bot.infinity_polling(skip_pending=True)
 
 threading.Thread(target=run_bot).start()
@@ -205,4 +206,5 @@ threading.Thread(target=run_bot).start()
 # =============================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=PORT)
+
 
