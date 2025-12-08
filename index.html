@@ -1,55 +1,40 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Library Of Games</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              main: '#0C0D14', header: '#212233', panel: '#373952',
-              card: '#14151e', textMain: '#ffffff', textMuted: '#b1b6c8'
-            },
-            fontFamily: { sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'] },
-            boxShadow: { glow: '0 0 15px rgba(255, 255, 255, 0.1)', card: '0 14px 30px rgba(0, 0, 0, 0.7)', header: '0 10px 30px rgba(0, 0, 0, 0.45)' }
-          }
-        }
-      };
-    </script>
-    <style>
-      body { background-color: #0C0D14; color: #ffffff; }
-      ::-webkit-scrollbar { width: 8px; }
-      ::-webkit-scrollbar-track { background: #0C0D14; }
-      ::-webkit-scrollbar-thumb { background: #373952; border-radius: 4px; }
-      ::-webkit-scrollbar-thumb:hover { background: #4f527a; }
-      .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-      .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
-    </style>
-    <script type="importmap">
-      {
-        "imports": {
-          "react": "https://esm.sh/react@18.3.1",
-          "react/": "https://esm.sh/react@18.3.1/",
-          "react-dom": "https://esm.sh/react-dom@18.3.1",
-          "react-dom/": "https://esm.sh/react-dom@18.3.1/",
-          "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
-          "framer-motion": "https://esm.sh/framer-motion@11",
-          "lucide-react": "https://esm.sh/lucide-react@0.263.1"
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Of Games</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { main: '#0C0D14', header: '#212233', panel: '#373952', card: '#14151e', textMain: '#ffffff', textMuted: '#b1b6c8' },
+          boxShadow: { glow: '0 0 15px rgba(255,255,255,0.1)', card: '0 14px 30px rgba(0,0,0,0.7)', header: '0 10px 30px rgba(0,0,0,0.45)' }
         }
       }
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module">
-      import React from "react";
-      import ReactDOM from "react-dom/client";
-      import App from "./App.js";
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(React.createElement(React.StrictMode, null, React.createElement(App)));
-    </script>
-  </body>
+    };
+  </script>
+  <style>
+    body { background-color: #0C0D14; color: #ffffff; }
+    ::-webkit-scrollbar { width: 8px; background: #0C0D14; }
+    ::-webkit-scrollbar-thumb { background: #373952; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <!-- UMD CDN - работают гарантированно -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://cdn.skypack.dev/pin/framer-motion@v10.12.16-EFPnY9rFzNqX6oL8oq0f/mode=legacy/min/index.js"></script>
+  <script src="https://cdn.skypack.dev/lucide-react"></script>
+  
+  <script type="module">
+    import App from "./App.js";
+    const { createRoot } = ReactDOM;
+    const root = createRoot(document.getElementById('root'));
+    root.render(React.createElement(App));
+  </script>
+</body>
 </html>
