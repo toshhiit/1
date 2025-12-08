@@ -145,6 +145,11 @@ def login_page():
 def static_files(path):
     return send_from_directory(SITE_DIR, path)
 
+mimetype='application/javascript')
+    elif path.endswith('.css'):
+        return send_from_directory(SITE_DIR, path, mimetype='text/css')
+    else:
+        return send_from_directory(SITE_DIR, path)
 
 # =============== API: VERIFY TOKEN ===============
 @app.post("/api/auth/verify")
@@ -215,3 +220,4 @@ threading.Thread(target=run_bot, daemon=True).start()
 # =============== RUN FLASK ===============
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=PORT)
+
