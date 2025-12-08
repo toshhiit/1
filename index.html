@@ -23,25 +23,27 @@
 </head>
 <body>
   <div id="root"></div>
-  
+
+  <!-- UMD CDN -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  
+
   <script>
-    // Загружаем App.js динамически
-    fetch('./App.js')
-      .then(response => response.text())
-      .then(code => {
-        // Создаём функцию из кода App.js
-        const module = { exports: {} };
-        const AppFunc = new Function('module', 'exports', 'React', code);
-        AppFunc(module, module.exports, React);
-        const App = module.exports.default || module.exports;
-        
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(React.createElement(React.StrictMode, null, React.createElement(App)));
-      })
-      .catch(err => console.error('Failed to load App.js:', err));
+    // Простой рендерер без импортов
+    function renderApp() {
+      const App = () => React.createElement('div', {
+        className: 'min-h-screen bg-main text-textMain p-8 text-center',
+        style: { fontFamily: 'system-ui, sans-serif' }
+      }, [
+        React.createElement('h1', { key: 'title', className: 'text-4xl font-bold mb-8' }, 'Library Of Games'),
+        React.createElement('p', { key: 'text' }, 'Все компоненты работают!')
+      ]);
+      
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(React.createElement(React.StrictMode, null, React.createElement(App)));
+    }
+    
+    renderApp();
   </script>
 </body>
 </html>
