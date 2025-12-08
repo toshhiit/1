@@ -20,6 +20,7 @@ import Drawer from "./components/Drawer.js";
 import GamePage from "./components/GamePage.js";
 import ProfileSettings from "./components/ProfileSettings.js";
 import Shop from "./components/Shop.js";
+import GameMechanics from "./GameMechanics.js";
 
 function App() {
   const [user, setUser] = useState({
