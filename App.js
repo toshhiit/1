@@ -14,7 +14,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { GAMES, AVAILABLE_AVATARS } from "./constant.js";  // ← ОШИБКА ЗДЕСЬ
+import { GAMES, AVAILABLE_AVATARS, SHOP_ITEMS } from "./constant.js";  // ← ОШИБКА ЗДЕСЬ
 import GameCard from "./components/GameCard.js";
 import Drawer from "./components/Drawer.js";
 import GamePage from "./components/GamePage.js";
